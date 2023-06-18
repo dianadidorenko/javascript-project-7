@@ -252,7 +252,7 @@
 
         // Check Phone Number
 
-        patternDigit = /\d/;
+        patternDigit = /^\+380\d{7}$/;
 
         if (!patternDigit.test(userNumberValue)) {
           errorPhoneNumber.style.display = "block";
