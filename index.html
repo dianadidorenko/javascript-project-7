@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:regular,700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Home</title>
+    <style>
+      body {
+        position: relative;
+        height: 100vh;
+  
+      }
+      * {
+        margin: 0;
+      }
+      .wrapper {
+      }
+      .subscribe {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 270px;
+        padding: 20px 20px 40px 20px;
+        background-color: #fff;
+        border-radius: 20px;
+        color: #333;
+        box-shadow: 0px 0px 60px 5px rgba(0, 0, 0, 0.4);
+      }
+      .subscribe:after {
+        position: absolute;
+        content: "";
+        right: -10px;
+        bottom: 28px;
+        width: 0;
+        height: 0;
+        border-left: 0px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid #1a044e;
+      }
+      .subscribe p:nth-child(1) {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        line-height: 22px;
+      }
+      .subscribe p:nth-child(2) {
+        font-size: 16px;
+        text-align: center;
+        padding: 10px 0;
+      }
+      .subscribe p:nth-child(2) span {
+        color: #22bb16;
+        font-weight: bold;
+      }
+      .subscribe input {
+        border: none;
+        border-bottom: 1px solid #d4d4d4;
+        padding: 12px 10px;
+        width: 82%;
+        background: transparent;
+        transition: all 0.25s ease;
+        font-size: 14px;
+        border-radius: 10px;
+        margin: 10px 0;
+      }
+      .subscribe input:focus {
+        outline: none;
+        border-bottom: 1px solid #0d095e;
+        font-family: "Gill Sans", "sans-serif";
+      }
+      .subscribe .submit-btn {
+        position: absolute;
+        border-radius: 30px;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+        background-color: #22bb16;
+        color: #fff;
+        padding: 12px 25px;
+        display: inline-block;
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 3px;
+        right: -10px;
+        bottom: -20px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        box-shadow: -5px 6px 20px 0px rgba(26, 26, 26, 0.4);
+      }
+      .subscribe .submit-btn:hover {
+        background-color: #11d503;
+        box-shadow: -5px 6px 20px 0px rgba(88, 88, 88, 0.569);
+      }
+      .question-block {
+        padding-top: 20px;
+      }
+      .question-block span {
+        display: block;
+        color: #333;
+        padding-left: 10px;
+        padding-bottom: 10px;
+        opacity: 0.9;
+      }
+      .question {
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+      }
+      .error-not {
+        color: red;
+        padding: 10px 10px;
+        font-size: 18px;
+        border: 1px solid red;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <form
+      class="subscribe"
+      method="GET"
+      id="regForm"
+      onsubmit="return checkForm()"
+    >
+      <p>Залишились питання?</p>
+      <p>Передзвонимо протягом <span>15 секунд!</span></p>
+
+      <div>
+        <input
+          placeholder="Name"
+          id="userName"
+          class="subscribe-input"
+          name="name"
+          type="text"
+          required
+        />
+      </div>
+      <div class="error-not" id="errorName" style="display: none">
+        Некоректні дані
+      </div>
+
+      <div>
+        <input
+          placeholder="Phone number"
+          id="userNumber"
+          class="subscribe-input"
+          name="number"
+          type="tel"
+          required
+        />
+      </div>
+      <div class="error-not" id="errorPhoneNumber" style="display: none">
+        Некоректні дані
+      </div>
+
+      <div>
+        <input
+          placeholder="E-mail"
+          id="userEmail"
+          class="subscribe-input"
+          name="email"
+          type="email"
+          required
+        />
+      </div>
+      <div class="error-not" id="errorEmail" style="display: none">
+        Некоректні дані
+      </div>
+
+      <div class="question-block">
+        <span>Ваше питання</span>
+        <input
+          id="userQuestion"
+          class="subscribe-input question"
+          name="question"
+          type="text"
+          required
+        />
+      </div>
+      <div class="error-not" id="errorQuestion" style="display: none">
+        Некоректні дані
+      </div>
+      <br />
+
+      <input type="submit" class="submit-btn" value="ЗАЛИШИТИ ЗАЯВКУ" />
+    </form>
+
+    <script type="text/javascript">
+      function checkForm() {
+        errorName.style.display = "none";
+        errorPhoneNumber.style.display = "none";
+        errorEmail.style.display = "none";
+        errorQuestion.style.display = "none";
+
+        let usernameValue = document.getElementById("userName").value,
+          userNumberValue = document.getElementById("userNumber").value,
+          userEmailValue = document.getElementById("userEmail").value,
+          userQuestionValue = document.getElementById("userQuestion").value,
+          username = document.getElementById("userName"),
+          userNumber = document.getElementById("userNumber"),
+          userEmail = document.getElementById("userEmail"),
+          userQuestion = document.getElementById("userQuestion");
+
+        username.style.background = "white";
+        userNumber.style.background = "white";
+        userEmail.style.background = "white";
+        userQuestion.style.background = "white";
+
+        username.style.borderBottom = "1px solid #d4d4d4";
+        userNumber.style.borderBottom = "1px solid #d4d4d4";
+        userEmail.style.borderBottom = "1px solid #d4d4d4";
+        userQuestion.style.borderBottom = "1px solid #d4d4d4";
+
+        checkName = true;
+        checkNumber = true;
+        checkEmail = true;
+        checkQuestion = true;
+
+        // Check Name
+
+        patternName = /^[а-яА-Яa-zA-Z]+$/; // щоб були лише букви від і до
+
+        if (!patternName.test(usernameValue)) {
+          errorName.style.display = "block";
+          username.style.borderBottom = "1px solid red";
+          checkName = false;
+        }
+        // =================================================================
+
+        // Check Phone Number
+
+        patternDigit = /\d/;
+
+        if (!patternDigit.test(userNumberValue)) {
+          errorPhoneNumber.style.display = "block";
+          username.style.borderBottom = "1px solid red";
+          checkNumber = false;
+        }
+        // =================================================================
+
+        // Check Email
+
+        patternMail = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
+
+        if (!patternMail.test(userEmailValue)) {
+          errorEmail.style.display = "block";
+          username.style.borderBottom = "1px solid red";
+          checkEmail = false;
+        }
+        // =================================================================
+
+        // Check Question
+
+        if (userQuestionValue.length < 10) {
+          errorQuestion.style.display = "block";
+          username.style.borderBottom = "1px solid red";
+          checkQuestion = false;
+        }
+        // =================================================================
+
+        // Check form to send
+        if (
+          checkName == true &&
+          checkNumber == true &&
+          checkEmail == true &&
+          checkQuestion == true
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+        //
+      }
+    </script>
+  </body>
+</html>

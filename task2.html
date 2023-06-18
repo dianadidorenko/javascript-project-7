@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Rubik+Iso:regular"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Permanent+Marker:regular"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        box-sizing: border-box;
+      }
+      a {
+        text-decoration: none;
+      }
+      ul,
+      ol,
+      li {
+        list-style: none;
+      }
+      img {
+        vertical-align: top;
+      }
+      body {
+        height: 100vh;
+      }
+      #wrapper {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: url(img/bg.jpg) no-repeat center/cover;
+        z-index: 1;
+      }
+      .book-items {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        padding: 50px;
+        column-gap: 70px;
+        z-index: 3;
+      }
+      .book-item {
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+        border: 3px solid outset rgba(179, 179, 179, 0.5);
+        padding: 40px;
+        background-color: rgba(202, 202, 202, 0.497);
+        border-radius: 30px;
+        box-shadow: 0px 0px 20px 20px rgb(13, 13, 13);
+      }
+      .main-pic {
+        max-width: 250px;
+        height: 100%;
+        border: 3px solid black;
+        box-shadow: 0px 0px 20px black;
+      }
+      .book-item__title {
+        font-size: 33px;
+      }
+      .book-item__info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+      }
+      .book-item__author {
+        text-transform: uppercase;
+      }
+      .book-item__price {
+        position: absolute;
+        z-index: 3;
+        right: -20px;
+        top: 10px;
+        font-weight: 900;
+        font-size: 35px;
+        border-radius: 50%;
+        font-family: "Permanent Marker", sans-serif;
+      }
+      .book-item__price::after {
+        position: absolute;
+        content: url(img/baloon.svg);
+        bottom: -130px;
+        left: -70px;
+        z-index: -1;
+      }
+      .book-item__price:hover::after {
+        animation: myAnim 10s ease 0s 1 normal forwards;
+      }
+      button,
+      #buy {
+        max-width: 150px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: rgb(245, 245, 22);
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: 2px;
+        font-family: "Rubik Iso", sans-serif;
+        border: 1px solid black;
+        box-shadow: 0px 0px 10px black;
+        transition: all 0.3s ease 0s;
+      }
+      button:hover,
+      #buy:hover {
+        background-color: rgb(255, 255, 9);
+        box-shadow: 0px 0px 30px black;
+        cursor: pointer;
+      }
+      .full-screen-button {
+        position: absolute;
+        top: 50%;
+        left: 90%;
+        transform: translate(-50%, -50%);
+        font-size: 12px;
+        max-width: 700px;
+        background-color: rgb(197, 197, 0);
+        transform: rotate(-90deg);
+      }
+      #form,
+      #thanksBlock {
+        position: absolute;
+        z-index: 10;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+        background-color: seagreen;
+        padding: 40px;
+        border-radius: 30px;
+        font-size: 20px;
+        font-weight: 700;
+        display: none;
+      }
+      #thanksBlock {
+        z-index: 10;
+        padding: 100px 20px;
+        font-size: 30px;
+        width: 990px;
+        z-index: 5;
+        background: url(img/light-forest.jpg) no-repeat center/cover;
+      }
+      .form-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        column-gap: 50px;
+      }
+      .input-item input,
+      textarea {
+        resize: none;
+        outline: none;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .thanks-for-order {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 20px;
+        position: relative;
+        color: white;
+        height: 673px;
+      }
+      .thanks-for-order p {
+        max-width: 600px;
+        background-color: #ffffff5c;
+        padding: 20px;
+        border-radius: 20px;
+        text-align: center;
+      }
+      #formBtn {
+        width: 40px;
+        height: 40px;
+        background-color: #ffffff84;
+        border-radius: 50%;
+        position: absolute;
+        padding: 5px;
+        top: 20px;
+        right: 20px;
+        z-index: 5;
+        cursor: pointer;
+      }
+      #thankBtn {
+        width: 50px;
+        height: 50px;
+        background-color: #ffffff84;
+        border-radius: 50%;
+        position: absolute;
+        padding: 10px;
+        top: 50px;
+        right: 50px;
+        z-index: 5;
+        cursor: pointer;
+      }
+
+      @keyframes myAnim {
+        0% {
+          animation-timing-function: ease-out;
+          transform: scale(1);
+          transform-origin: center center;
+        }
+        10% {
+          animation-timing-function: ease-in;
+          transform: scale(0.91);
+        }
+        17% {
+          animation-timing-function: ease-out;
+          transform: scale(0.98);
+        }
+        33% {
+          animation-timing-function: ease-in;
+          transform: scale(0.87);
+        }
+        45% {
+          animation-timing-function: ease-out;
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="bookItems" class="book-items">
+        <div class="book-item" id="It">
+          <img class="main-pic" src="img/it.jpg" alt="Steven King, It" />
+          <h2 class="book-item__title">It</h2>
+          <div class="book-item__info">
+            <h3 class="book-item__author">Steven King</h3>
+            <p class="book-item__price">30$</p>
+          </div>
+          <button id="selectIt">Select</button>
+        </div>
+
+        <div class="book-item" id="Misery">
+          <img
+            class="main-pic"
+            src="img/misery.jpg"
+            alt="Steven King, Misery"
+          />
+          <h2 class="book-item__title">Misery</h2>
+          <div class="book-item__info">
+            <h3 class="book-item__author">Steven King</h3>
+            <p class="book-item__price">40$</p>
+          </div>
+          <button id="selectMisery">Select</button>
+        </div>
+
+        <div class="book-item" id="theOutsider">
+          <img
+            class="main-pic"
+            src="img/the-outsider.jpg"
+            alt="Steven King, The Outsider"
+          />
+          <h2 class="book-item__title">The Outsider</h2>
+          <div class="book-item__info">
+            <h3 class="book-item__author">Steven King</h3>
+            <p class="book-item__price">50$</p>
+          </div>
+          <button id="selectOutsider">Select</button>
+        </div>
+      </div>
+      <button data-toggle-fullscreen class="full-screen-button">
+        Переключить в полноэкранный режим
+      </button>
+    </div>
+
+    <form id="form" class="form">
+      <img src="img/close.svg" id="formBtn" alt="Close Icon" />
+      <div class="form-item">
+        Book
+        <div class="input-item">
+          <input type="text" name="title" id="title" />
+        </div>
+      </div>
+      <div class="form-item">
+        Quantity:
+        <div class="input-item">
+          <input type="number" name="quantity" id="quantity" />
+        </div>
+      </div>
+      <div class="form-item">
+        Name:
+        <div class="input-item">
+          <input type="text" name="username" id="username" />
+        </div>
+      </div>
+      <div class="form-item">
+        Delivery <br />
+        address:
+        <div class="input-item">
+          <textarea name="deliveryaddress" id="deliveryAddress"></textarea>
+        </div>
+      </div>
+      <div class="form-item">
+        Delivery <br />
+        date:
+        <div class="input-item">
+          <input type="date" name="deliverydate" id="deliveryDate" />
+        </div>
+      </div>
+      <div class="form-item">
+        Comment:
+        <div class="input-item">
+          <textarea name="comment" id="comment"></textarea>
+        </div>
+      </div>
+      <input type="submit" id="buy" value="Buy" />
+    </form>
+
+    <div id="thanksBlock" class="thanks-for-order">
+      <img src="img/close.svg" id="thankBtn" alt="Close Icon" />
+      <p><span id="thanksName"></span>, thanks for the order!</p>
+      <p>
+        Book <span id="thanksTitleBook"></span> will be delivered on
+        <span id="thanksDate"></span> to <span id="thanksAddress"></span>
+      </p>
+    </div>
+
+    <script type="text/javascript">
+      // Full Screen Mode
+      document.addEventListener(
+        "click",
+        function (event) {
+          // игнорирование событий, которые произошли не на данной кнопке
+          if (!event.target.hasAttribute("data-toggle-fullscreen")) return;
+
+          // если элемент уже в полноэкранном режиме, выйти из него
+          // В противном случае войти в полный экран
+          if (document.fullscreenElement) {
+            document.exitFullscreen();
+          } else {
+            document.documentElement.requestFullscreen();
+          }
+        },
+        false
+      );
+
+      // ==========================================
+
+      // Make own date
+      var dateShow = document.querySelector('input[type="date"]'),
+        day = new Date().getDate(),
+        month = new Date().getMonth() + 1,
+        year = new Date().getFullYear();
+      dateShow.value = year + "-0" + month + "-" + day;
+
+      // ==========================================
+
+      let buttons = document.getElementsByTagName("button"),
+        title = document.getElementById("title"),
+        username = document.getElementById("username"),
+        deliveryAddress = document.getElementById("deliveryAddress"),
+        deliveryDate = document.getElementById("deliveryDate");
+
+      // ==========================================
+
+      // Select Book Buttons
+      selectIt.addEventListener("click", (e) => {
+        var titleIt = e.target.closest("div").children[1].innerText,
+          titleAuthor =
+            e.target.closest("div").children[2].children[0].innerText,
+          bookTitleFull = titleAuthor + ", " + titleIt;
+        title.value = bookTitleFull;
+
+        form.style.display = "flex";
+        wrapper.style.opacity = "0.3";
+
+        // title
+
+        formBtn.addEventListener("click", function (e) {
+          wrapper.style.opacity = "1";
+          form.style.display = "none";
+        });
+      });
+
+      selectMisery.addEventListener("click", (e) => {
+        form.style.display = "flex";
+        wrapper.style.opacity = "0.3";
+
+        // title
+        var titleIt = e.target.closest("div").children[1].innerText,
+          titleAuthor =
+            e.target.closest("div").children[2].children[0].innerText,
+          bookTitleFull = titleAuthor + ", " + titleIt;
+
+        formBtn.addEventListener("click", function (e) {
+          wrapper.style.opacity = "1";
+          form.style.display = "none";
+        });
+      });
+
+      selectOutsider.addEventListener("click", (e) => {
+        form.style.display = "flex";
+        wrapper.style.opacity = "0.3";
+
+        // title
+        var titleIt = e.target.closest("div").children[1].innerText,
+          titleAuthor =
+            e.target.closest("div").children[2].children[0].innerText,
+          bookTitleFull = titleAuthor + ", " + titleIt;
+        title.value = bookTitleFull;
+
+        formBtn.addEventListener("click", function (e) {
+          wrapper.style.opacity = "1";
+          form.style.display = "none";
+        });
+      });
+
+      // ==========================================
+
+      // Thanks Form
+      var thanksName = document.getElementById("thanksName"),
+        thanksTitleBook = document.getElementById("thanksTitleBook"),
+        thanksDate = document.getElementById("thanksDate"),
+        thanksAddress = document.getElementById("thanksAddress"),
+        thanksText = document.getElementById("#thanksBlock");
+
+      buy.addEventListener("click", (e) => {
+        e.preventDefault();
+        form.style.display = "none";
+        wrapper.style.opacity = "0.3";
+        thanksBlock.style.display = "flex";
+        thanksName.innerText = username.value;
+        thanksTitleBook.innerText = '"' + title.value + '"';
+        thanksDate.innerText = deliveryDate.value;
+        thanksAddress.innerText = deliveryAddress.value;
+
+        thankBtn.addEventListener("click", function (e) {
+          wrapper.style.opacity = "1";
+          thanksBlock.style.display = "none";
+        });
+      });
+
+      // ==========================================
+    </script>
+  </body>
+</html>
