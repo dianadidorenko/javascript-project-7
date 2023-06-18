@@ -13,7 +13,6 @@
       body {
         position: relative;
         height: 100vh;
-  
       }
       * {
         margin: 0;
@@ -117,10 +116,29 @@
         border: 1px solid red;
         border-radius: 10px;
       }
+
+      .tasks-block {
+        display: flex;
+        column-gap: 15px;
+        padding: 30px;
+        font-size: 25px;
+      }
+      .tasks-block a {
+        color: rgb(58, 58, 58);
+        text-decoration: none;
+      }
+      .tasks-block a:hover {
+        text-decoration: underline;
+      }
     </style>
   </head>
 
   <body>
+
+    <div class="tasks-block">
+      <a href="task2.html">Task 2</a>
+    </div>
+
     <form
       class="subscribe"
       method="GET"

@@ -42,6 +42,7 @@
         overflow: hidden;
         background: url(img/bg.jpg) no-repeat center/cover;
         z-index: 1;
+        position: relative;
       }
       .book-items {
         position: absolute;
@@ -214,6 +215,20 @@
         cursor: pointer;
       }
 
+      .tasks-block {
+        display: flex;
+        column-gap: 15px;
+        padding: 30px;
+        font-size: 25px;
+      }
+      .tasks-block a {
+        color: rgb(168, 168, 168);
+        text-decoration: none;
+      }
+      .tasks-block a:hover {
+        text-decoration: underline;
+      }
+
       @keyframes myAnim {
         0% {
           animation-timing-function: ease-out;
@@ -241,6 +256,11 @@
   </head>
   <body>
     <div id="wrapper">
+
+       <div class="tasks-block">
+      <a href="index.html">Task 1 > </a>
+    </div>
+
       <div id="bookItems" class="book-items">
         <div class="book-item" id="It">
           <img class="main-pic" src="img/it.jpg" alt="Steven King, It" />
