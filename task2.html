@@ -256,13 +256,12 @@
   </head>
   <body>
     <div id="wrapper">
-
-       <div class="tasks-block">
-      <a href="index.html">Task 1 > </a>
-    </div>
+      <div class="tasks-block">
+        <a href="index.html">Task 1 > </a>
+      </div>
 
       <div id="bookItems" class="book-items">
-        <div class="book-item" id="It">
+        <div class="book-item">
           <img class="main-pic" src="img/it.jpg" alt="Steven King, It" />
           <h2 class="book-item__title">It</h2>
           <div class="book-item__info">
@@ -272,7 +271,7 @@
           <button id="selectIt">Select</button>
         </div>
 
-        <div class="book-item" id="Misery">
+        <div class="book-item">
           <img
             class="main-pic"
             src="img/misery.jpg"
@@ -286,7 +285,7 @@
           <button id="selectMisery">Select</button>
         </div>
 
-        <div class="book-item" id="theOutsider">
+        <div class="book-item">
           <img
             class="main-pic"
             src="img/the-outsider.jpg"
@@ -396,6 +395,8 @@
       // ==========================================
 
       // Select Book Buttons
+
+      // IT
       selectIt.addEventListener("click", (e) => {
         var titleIt = e.target.closest("div").children[1].innerText,
           titleAuthor =
@@ -406,39 +407,40 @@
         form.style.display = "flex";
         wrapper.style.opacity = "0.3";
 
-        // title
-
         formBtn.addEventListener("click", function (e) {
           wrapper.style.opacity = "1";
           form.style.display = "none";
         });
       });
+      // IT
 
+      //MISERY
       selectMisery.addEventListener("click", (e) => {
+        var titleMisery = e.target.closest("div").children[1].innerText,
+          titleAuthor =
+            e.target.closest("div").children[2].children[0].innerText,
+          bookTitleFull = titleAuthor + ", " + titleMisery;
+           title.value = bookTitleFull;
+
         form.style.display = "flex";
         wrapper.style.opacity = "0.3";
 
-        // title
-        var titleIt = e.target.closest("div").children[1].innerText,
-          titleAuthor =
-            e.target.closest("div").children[2].children[0].innerText,
-          bookTitleFull = titleAuthor + ", " + titleIt;
-
         formBtn.addEventListener("click", function (e) {
           wrapper.style.opacity = "1";
           form.style.display = "none";
         });
       });
+      //MISERY
 
+      // OUTSIDER
       selectOutsider.addEventListener("click", (e) => {
         form.style.display = "flex";
         wrapper.style.opacity = "0.3";
 
-        // title
-        var titleIt = e.target.closest("div").children[1].innerText,
+        var titleOutsider = e.target.closest("div").children[1].innerText,
           titleAuthor =
             e.target.closest("div").children[2].children[0].innerText,
-          bookTitleFull = titleAuthor + ", " + titleIt;
+          bookTitleFull = titleAuthor + ", " + titleOutsider;
         title.value = bookTitleFull;
 
         formBtn.addEventListener("click", function (e) {
@@ -446,6 +448,7 @@
           form.style.display = "none";
         });
       });
+      // OUTSIDER
 
       // ==========================================
 
