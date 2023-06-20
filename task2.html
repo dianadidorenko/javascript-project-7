@@ -145,9 +145,9 @@
         flex-direction: column;
         row-gap: 20px;
         background-color: seagreen;
-        padding: 40px;
+        padding: 60px 40px 40px 40px;
         border-radius: 30px;
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 700;
         display: none;
       }
@@ -170,8 +170,8 @@
         resize: none;
         outline: none;
         border-radius: 10px;
-        padding: 10px;
-        font-size: 20px;
+        padding: 5px;
+        font-size: 14px;
         font-weight: 600;
       }
 
@@ -179,7 +179,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        row-gap: 20px;
+        row-gap: 10px;
         position: relative;
         color: white;
         height: 673px;
@@ -192,28 +192,59 @@
         text-align: center;
       }
       #formBtn {
+        width: 30px;
+        height: 30px;
+        background-color: #ffffff84;
+        border-radius: 50%;
+        position: absolute;
+        padding: 5px;
+        top: 15px;
+        right: 15px;
+        z-index: 5;
+        cursor: pointer;
+      }
+      #thankBtn {
         width: 40px;
         height: 40px;
         background-color: #ffffff84;
         border-radius: 50%;
         position: absolute;
         padding: 5px;
-        top: 20px;
-        right: 20px;
-        z-index: 5;
-        cursor: pointer;
-      }
-      #thankBtn {
-        width: 50px;
-        height: 50px;
-        background-color: #ffffff84;
-        border-radius: 50%;
-        position: absolute;
-        padding: 10px;
         top: 50px;
         right: 50px;
         z-index: 5;
         cursor: pointer;
+      }
+      .input-item {
+        position: relative;
+      }
+      .error-not {
+        position: absolute;
+        right: -200px;
+        top: -5px;
+        color: red;
+        background-color: #ffffff84;
+        padding: 7px;
+        font-size: 15px;
+        border: 1px solid red;
+        border-radius: 10px;
+        letter-spacing: 1px;
+        display: none;
+      }
+      .error-not-quantity {
+        position: absolute;
+        right: -185px;
+      }
+      .error-not-name {
+        position: absolute;
+        right: -180px;
+      }
+      .error-not-address {
+        position: absolute;
+        right: -185px;
+      }
+      textarea::placeholder {
+        opacity: 0.3;
       }
 
       .tasks-block {
@@ -249,7 +280,36 @@
           flex-direction: column;
         }
       }
-      @media (max-width: 460px) {
+
+      @media (max-width: 768px) {
+        .error-not {
+          padding: 4px;
+          font-size: 13px;
+          text-align: center;
+          width: 100%;
+        }
+        #form,
+        #thanksBlock {
+          row-gap: 40px;
+        }
+        .error-not-quantity {
+          position: absolute;
+          right: 0;
+          top: 33px;
+        }
+        .error-not-name {
+          position: absolute;
+          right: 0;
+          top: 33px;
+        }
+        .error-not-address {
+          position: absolute;
+          right: 0;
+          top: 48px;
+        }
+      }
+
+      @media (max-width: 767.98px) {
         .book-item {
           padding: 30px;
         }
@@ -257,10 +317,10 @@
           max-width: 200px;
         }
         .book-item__title {
-          font-size: 25px;
+          font-size: 20px;
         }
         .book-item__author {
-          font-size: 16px;
+          font-size: 14px;
         }
         button,
         #buy {
@@ -273,13 +333,7 @@
           bottom: -135px;
           left: -75px;
         }
-        #form,
-        #thanksBlock {
-            position:fixed;
-          row-gap: 10px;
-          padding: 30px;
-          font-size: 16px;
-        }
+
         #form {
           padding: 50px 30px 30px 30px;
         }
@@ -288,7 +342,7 @@
         }
         .input-item input,
         textarea {
-          font-size: 16px;
+          font-size: 13px;
         }
         #thanksBlock {
           padding: 100px 20px;
@@ -388,24 +442,30 @@
       </button>
     </div>
 
-    <form id="form" class="form">
+    <form id="form" class="form" method="GET" onsubmit="return checkForm()">
       <img src="img/close.svg" id="formBtn" alt="Close Icon" />
       <div class="form-item">
         Book
         <div class="input-item">
-          <input type="text" name="title" id="title" />
+          <input type="text" name="title" id="title" readonly />
         </div>
       </div>
       <div class="form-item">
         Quantity:
         <div class="input-item">
           <input type="number" name="quantity" id="quantity" />
+          <div class="error-not error-not-quantity" id="errorQuantity">
+            Кількість літер від 1
+          </div>
         </div>
       </div>
       <div class="form-item">
         Name:
         <div class="input-item">
           <input type="text" name="username" id="username" />
+          <div class="error-not error-not-name" id="errorName">
+            Введіть лише літери
+          </div>
         </div>
       </div>
       <div class="form-item">
@@ -413,6 +473,9 @@
         address:
         <div class="input-item">
           <textarea name="deliveryaddress" id="deliveryAddress"></textarea>
+          <div class="error-not error-not-address" id="errorDeliveryAddress">
+            Кількість літер від 1
+          </div>
         </div>
       </div>
       <div class="form-item">
@@ -425,7 +488,11 @@
       <div class="form-item">
         Comment:
         <div class="input-item">
-          <textarea name="comment" id="comment"></textarea>
+          <textarea
+            name="comment"
+            id="comment"
+            placeholder="Необ'язково"
+          ></textarea>
         </div>
       </div>
       <input type="submit" id="buy" value="Buy" />
@@ -478,7 +545,7 @@
 
       // ==========================================
 
-      // Select Book Buttons
+      // Select Book
 
       // IT
       selectIt.addEventListener("click", (e) => {
@@ -487,6 +554,10 @@
             e.target.closest("div").children[2].children[0].innerText,
           bookTitleFull = titleAuthor + ", " + titleIt;
         title.value = bookTitleFull;
+
+        errorName.style.display = "none";
+        errorQuantity.style.display = "none";
+        errorDeliveryAddress.style.display = "none";
 
         form.style.display = "flex";
         wrapper.style.opacity = "0.3";
@@ -504,8 +575,12 @@
           titleAuthor =
             e.target.closest("div").children[2].children[0].innerText,
           bookTitleFull = titleAuthor + ", " + titleMisery,
-           form = document.getElementById("form");
+          form = document.getElementById("form");
         title.value = bookTitleFull;
+
+        errorName.style.display = "none";
+        errorQuantity.style.display = "none";
+        errorDeliveryAddress.style.display = "none";
 
         form.style.display = "flex";
         wrapper.style.opacity = "0.3";
@@ -522,6 +597,10 @@
         form.style.display = "flex";
         wrapper.style.opacity = "0.3";
 
+        errorName.style.display = "none";
+        errorQuantity.style.display = "none";
+        errorDeliveryAddress.style.display = "none";
+
         var titleOutsider = e.target.closest("div").children[1].innerText,
           titleAuthor =
             e.target.closest("div").children[2].children[0].innerText,
@@ -537,28 +616,88 @@
 
       // ==========================================
 
+      //Check Form
+
+      function checkForm() {
+        var formName = document.getElementById("username").value;
+
+        errorName.style.display = "none";
+        errorQuantity.style.display = "none";
+        errorDeliveryAddress.style.display = "none";
+
+        checkName = true;
+        checkQuantity = true;
+        checkDeliveryAddress = true;
+
+        // Check Name
+
+        patternName = /^[а-яА-Яa-zA-Z]+$/; // щоб були лише букви від і до
+
+        if (!patternName.test(formName)) {
+          errorName.style.display = "block";
+          checkName = false;
+        }
+        // =================================================================
+
+        // Check Quantity
+
+        var formQuantity = document.getElementById("quantity").value;
+
+        if (formQuantity.length == 0) {
+          errorQuantity.style.display = "block";
+          checkQuantity = false;
+        }
+        // =================================================================
+
+        // Check Delivery Date
+        var formDeliveryAddress =
+          document.getElementById("deliveryAddress").value;
+
+        if (formDeliveryAddress.length == 0) {
+          errorDeliveryAddress.style.display = "block";
+          checkDeliveryAddress = false;
+        }
+
+        // =================================================================
+
+        // Check form to send
+        if (
+          checkName == true &&
+          checkQuantity == true &&
+          checkDeliveryAddress == true
+        ) {
+          buy.addEventListener("click", (e) => {
+            e.preventDefault();
+            errorName.style.display = "none";
+            errorQuantity.style.display = "none";
+            form.style.display = "none";
+            wrapper.style.opacity = "0.3";
+            thanksBlock.style.display = "flex";
+            thanksName.innerText = username.value;
+            thanksTitleBook.innerText = '"' + title.value + '"';
+            thanksDate.innerText = deliveryDate.value;
+            thanksAddress.innerText = deliveryAddress.value;
+
+            thankBtn.addEventListener("click", function (e) {
+              wrapper.style.opacity = "1";
+              thanksBlock.style.display = "none";
+              username.value = "";
+              deliveryAddress.value = "";
+              quantity.value = "";
+            });
+          });
+          return false;
+        } else {
+          return false;
+        }
+      }
+
       // Thanks Form
       var thanksName = document.getElementById("thanksName"),
         thanksTitleBook = document.getElementById("thanksTitleBook"),
         thanksDate = document.getElementById("thanksDate"),
         thanksAddress = document.getElementById("thanksAddress"),
         thanksText = document.getElementById("#thanksBlock");
-
-      buy.addEventListener("click", (e) => {
-        e.preventDefault();
-        form.style.display = "none";
-        wrapper.style.opacity = "0.3";
-        thanksBlock.style.display = "flex";
-        thanksName.innerText = username.value;
-        thanksTitleBook.innerText = '"' + title.value + '"';
-        thanksDate.innerText = deliveryDate.value;
-        thanksAddress.innerText = deliveryAddress.value;
-
-        thankBtn.addEventListener("click", function (e) {
-          wrapper.style.opacity = "1";
-          thanksBlock.style.display = "none";
-        });
-      });
 
       // ==========================================
     </script>
